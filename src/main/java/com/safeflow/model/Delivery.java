@@ -21,11 +21,11 @@ public class Delivery {
     @Column(name = "destination", nullable = false)
     private String destination;
 
-    @Column(name = "package", nullable = false)
+    @Column(name = "package_description", nullable = false) // Renamed field
     private String packageDescription;
 
-    @Column(name = "exit", nullable = false)
-    private String exit;
+    @Column(name = "exit_point", nullable = false) // Renamed field
+    private String exitPoint;
 
     @Column(name = "route", nullable = false)
     private String route;
