@@ -28,4 +28,9 @@ public class DeliveryServiceImpl implements DeliveryService {
     public Optional<Delivery> findById(Long id) {
         return deliveryRepository.findById(id);
     }
+
+    @Override
+    public void deleteDelivery(Long id) {
+        deliveryRepository.deleteById(id);
+    }
 }

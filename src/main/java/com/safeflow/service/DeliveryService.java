@@ -8,5 +8,6 @@ import java.util.Optional;
 public interface DeliveryService {
     List<Delivery> getAllDeliveries();
     Delivery createDelivery(Delivery delivery);
-    Optional<Delivery> findById(Long id);  // New method
+    Optional<Delivery> findById(Long id);
+    void deleteDelivery(Long id);  // New delete method
 }

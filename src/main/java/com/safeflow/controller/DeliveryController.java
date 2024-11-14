@@ -34,4 +34,14 @@ public class DeliveryController {
     public ResponseEntity<Delivery> createDelivery(@RequestBody Delivery delivery) {
         return new ResponseEntity<>(deliveryService.createDelivery(delivery), HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteDelivery(@PathVariable Long id) {
+        if (deliveryService.findById(id).isPresent()) {
+            deliveryService.deleteDelivery(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
