@@ -21,7 +21,7 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:4200", "https://deploy-greengrow.firebaseapp.com")
+                .allowedOrigins("http://localhost:4200", "https://safeflow-v1.netlify.app")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*")
                 .allowCredentials(true)
