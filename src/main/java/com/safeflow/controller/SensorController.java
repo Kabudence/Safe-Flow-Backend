@@ -1,6 +1,6 @@
 package com.safeflow.controller;
 
-import com.safeflow.model.Sensor;
+import com.safeflow.domain.model.Device;
 import com.safeflow.service.SensorService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,24 +19,24 @@ public class SensorController {
     private SensorService sensorService;
 
     @GetMapping
-    public ResponseEntity<List<Sensor>> getAllSensors() {
+    public ResponseEntity<List<Device>> getAllSensors() {
         return new ResponseEntity<>(sensorService.getAllSensors(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Sensor> getSensorById(@PathVariable Long id) {
+    public ResponseEntity<Device> getSensorById(@PathVariable Long id) {
         return sensorService.findById(id)
                 .map(sensor -> new ResponseEntity<>(sensor, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
-    public ResponseEntity<Sensor> createSensor(@RequestBody Sensor sensor) {
+    public ResponseEntity<Device> createSensor(@RequestBody Device sensor) {
         return new ResponseEntity<>(sensorService.createSensor(sensor), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Sensor> updateSensor(@PathVariable Long id, @RequestBody Sensor sensor) {
+    public ResponseEntity<Device> updateSensor(@PathVariable Long id, @RequestBody Device sensor) {
         return new ResponseEntity<>(sensorService.updateSensor(id, sensor), HttpStatus.OK);
     }
 
@@ -44,5 +44,16 @@ public class SensorController {
     public ResponseEntity<Void> deleteSensor(@PathVariable Long id) {
         sensorService.deleteSensor(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @GetMapping("/owner/{ownerId}")
+    public ResponseEntity<List<Device>> getSensorsByOwnerId(@PathVariable Long ownerId) {
+        List<Device> sensors = sensorService.getSensorByOwnerId(ownerId);
+        return new ResponseEntity<>(sensors, HttpStatus.OK);
+    }
+
+    @GetMapping("/delivery/{deliveryId}")
+    public ResponseEntity<List<Device>> getSensorsByDeliveryId(@PathVariable Long deliveryId) {
+        List<Device> sensors = sensorService.getByDeliveryId(deliveryId);
+        return new ResponseEntity<>(sensors, HttpStatus.OK);
     }
 }

@@ -1,5 +1,5 @@
-package com.safeflow.model;
-
+package com.safeflow.domain.model;
+import com.safeflow.domain.model.valueobjects.DeliveryState;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,6 +36,14 @@ public class Delivery {
     @Column(name = "combustible_type", nullable = false)
     private String combustibleType;
 
-    @Column(name = "warnings")
-    private String warnings;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "state", nullable = false)
+    private DeliveryState state;
+
+    @Column(name = "employee_id")
+    private Long employeeId;
+
+    @Column(name= "owner_id", nullable = false)
+    private Long ownerId;
 }

@@ -1,7 +1,7 @@
 package com.safeflow.controller;
 
 
-import com.safeflow.model.Service;
+import com.safeflow.domain.model.Service;
 import com.safeflow.service.ServiceServicio;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,6 @@
 package com.safeflow.IAM.model;
 
+import com.safeflow.IAM.model.valueobjects.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,5 +26,9 @@ public class User {
     private String email;
 
     @Column(name = "password", nullable = false)
-    private String password;  // Store hashed password
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="role", nullable = false)
+    private UserRole role;
 }

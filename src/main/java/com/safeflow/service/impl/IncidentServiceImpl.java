@@ -1,6 +1,6 @@
 package com.safeflow.service.impl;
 
-import com.safeflow.model.Incident;
+import com.safeflow.domain.model.Incident;
 import com.safeflow.repository.IncidentRepository;
 import com.safeflow.service.IncidentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +32,12 @@ public class IncidentServiceImpl implements IncidentService {
     @Override
     public Optional<Incident> findById(Long id) {
         return incidentRepository.findById(id);
+    }
+
+    @Override
+    public List<Incident> findIncidentsByDeliveryId(Long id) {
+        return incidentRepository.findIncidentByServiceId(id);
+
+
     }
 }

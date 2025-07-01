@@ -1,4 +1,4 @@
-package com.safeflow.model;
+package com.safeflow.domain.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,19 +11,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="incidents")
-public class Incident {
+@Table(name="services")
+public class Service {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "incident_place", nullable = false)
-    private String incidentPlace;
-
-    @Column(name = "date", nullable = false)
-    private String date;
+    @Column(name = "name_service", nullable = false)
+    private String nameService;
 
     @Column(name = "description", nullable = false)
     private String description;
+
+    @Column(name = "ownerId", nullable = false)
+    private Long ownerId;
+
+
+    private Long deliveryId;
 }

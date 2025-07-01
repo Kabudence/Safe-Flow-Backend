@@ -1,6 +1,6 @@
 package com.safeflow.controller;
 
-import com.safeflow.model.Incident;
+import com.safeflow.domain.model.Incident;
 import com.safeflow.service.IncidentService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +39,14 @@ public class IncidentController {
     public ResponseEntity<Void> deleteIncident(@PathVariable Long id) {
         incidentService.deleteIncident(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/delivery/{deliveryId}")
+    public ResponseEntity<List<Incident>> getIncidentsByDeliveryId(@PathVariable Long deliveryId) {
+        List<Incident> incidents = incidentService.findIncidentsByDeliveryId(deliveryId);
+        if (incidents.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(incidents, HttpStatus.OK);
     }
 }

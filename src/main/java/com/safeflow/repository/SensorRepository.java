@@ -1,7 +1,12 @@
 package com.safeflow.repository;
 
-import com.safeflow.model.Sensor;
+import com.safeflow.domain.model.Device;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SensorRepository extends JpaRepository<Sensor, Long> {
+import java.util.List;
+
+public interface SensorRepository extends JpaRepository<Device, Long> {
+
+    List<Device> getSensorByOwnerId(Long id);
+
 }

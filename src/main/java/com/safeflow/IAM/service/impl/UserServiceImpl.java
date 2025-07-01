@@ -4,8 +4,11 @@ import com.safeflow.IAM.dto.SigninRequest;
 import com.safeflow.IAM.dto.SignupRequest;
 import com.safeflow.IAM.dto.UserDTO;
 import com.safeflow.IAM.model.User;
+import com.safeflow.IAM.model.valueobjects.UserRole;
 import com.safeflow.IAM.repository.UserRepository;
 import com.safeflow.IAM.service.UserService;
+import com.safeflow.domain.model.Employee;
+import com.safeflow.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,25 +21,36 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     @Override
     public String signup(SignupRequest request) {
-        // Check if username or email already exists
         if (userRepository.findByUsername(request.getUsername()).isPresent() ||
                 userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new RuntimeException("Username or email already exists");
         }
 
-        // Create new user without encoding the password
         User user = User.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
-                .password(request.getPassword())  // Directly save plain text password (not recommended for production)
+                .role(request.getRole())
+                .password(request.getPassword())  // No codifiques el password en producción
                 .build();
 
-        userRepository.save(user);
+        user = userRepository.save(user);
+
+        if (request.getRole() == UserRole.EMPLOYEE) {
+            Employee employee = Employee.builder()
+                    .userId(user.getId())
+                    .fullName(request.getFullName())
+                    .build();
+            employeeRepository.save(employee);
+        }
+
         return "User registered successfully!";
     }
+
 
     @Override
     public boolean signin(SigninRequest request) {
